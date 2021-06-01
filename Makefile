@@ -7,3 +7,7 @@ fmt:
 		./Sources \
 		./Tests \
 		./Package.swift
+
+.PHONY: test
+test:
+	@swift test --enable-test-discovery
