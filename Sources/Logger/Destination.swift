@@ -5,24 +5,28 @@ import Foundation
 
 extension Logger {
   public struct Destination {
-    public var send: (Logger.Message, Logger.Formatter) -> Void
+    public var send: (Logger.Message) -> Void
 
-    public init(send: @escaping (Logger.Message, Logger.Formatter) -> Void) {
+    public init(send: @escaping (Logger.Message) -> Void) {
       self.send = send
     }
   }
 }
 
 extension Logger.Destination {
-  public static let console = Self(
-    send: { msg, formatter in
-      #if DEBUG
-        print(formatter.format(msg))
-      #endif
-    }
-  )
+  public static func console(using formatter: Logger.Formatter = .default) -> Logger.Destination {
+    Logger.Destination(
+      send: { msg in
+        #if DEBUG
+          print(formatter.format(msg))
+        #endif
+      }
+    )
+  }
 
-  public static func file(atURL url: URL) throws -> Logger.Destination {
+  public static func file(atURL url: URL, using formatter: Logger.Formatter = .default) throws
+    -> Logger.Destination
+  {
     let queue = DispatchQueue(label: "br.dev.native.logger.filedestination")
 
     if !FileManager.default.fileExists(atPath: url.path) {
@@ -30,7 +34,7 @@ extension Logger.Destination {
       FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
     }
 
-    return Logger.Destination { msg, formatter in
+    return Logger.Destination { msg in
       queue.sync {
         do {
           let handle = try FileHandle(forWritingTo: url)

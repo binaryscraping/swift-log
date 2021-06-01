@@ -64,7 +64,7 @@ extension Logger {
     )
 
     destinations.forEach {
-      $0.send(message, formatter)
+      $0.send(message)
     }
   }
 
