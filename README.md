@@ -1,3 +1,4 @@
 # Logger
+[![Test](https://github.com/nativedevbr/swift-log/actions/workflows/test.yml/badge.svg)](https://github.com/nativedevbr/swift-log/actions/workflows/test.yml)
 
-A description of this package.
+Simple logging for simples needs.
