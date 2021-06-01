@@ -8,9 +8,9 @@ extension Logger {
     public let date: Date
     public let level: Logger.Level
     public let msg: String
-    public let function: String
-    public let file: String
-    public let line: Int
+    public let function: StaticString
+    public let file: StaticString
+    public let line: UInt
     public let context: Any?
     public let system: String
   }

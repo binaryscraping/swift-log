@@ -19,8 +19,8 @@ extension Logger.Formatter {
   public static let `default` = Logger.Formatter { msg in
     let dateString = dateFormatter.string(from: msg.date)
     let contextString = msg.context.map { "\($0)" } ?? "<nil>"
-    let fileName = msg.file.split(separator: "/").last?.split(separator: ".").first ?? ""
+    let fileName = msg.file
     return
-      "\(dateString) [\(msg.level.rawValue)][\(msg.system)] \(msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
+      "\(dateString) [\(msg.level.rawValue)][\(msg.system)] \(msg.msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
   }
 }

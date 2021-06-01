@@ -47,9 +47,9 @@ extension Logger {
   public func log(
     level: Level,
     msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     let message = Message(
@@ -70,9 +70,9 @@ extension Logger {
 
   public func verbose(
     _ msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     log(level: .verbose, msg: msg(), function: function, file: file, line: line, context: context)
@@ -80,9 +80,9 @@ extension Logger {
 
   public func debug(
     _ msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     log(level: .debug, msg: msg(), function: function, file: file, line: line, context: context)
@@ -90,9 +90,9 @@ extension Logger {
 
   public func info(
     _ msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     log(level: .info, msg: msg(), function: function, file: file, line: line, context: context)
@@ -100,9 +100,9 @@ extension Logger {
 
   public func warning(
     _ msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     log(level: .warning, msg: msg(), function: function, file: file, line: line, context: context)
@@ -110,9 +110,9 @@ extension Logger {
 
   public func error(
     _ msg: @autoclosure () -> String,
-    function: String = #function,
-    file: String = #fileID,
-    line: Int = #line,
+    function: StaticString = #function,
+    file: StaticString = #fileID,
+    line: UInt = #line,
     context: Any? = nil
   ) {
     log(level: .error, msg: msg(), function: function, file: file, line: line, context: context)
