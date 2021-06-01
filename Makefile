@@ -10,4 +10,4 @@ fmt:
 
 .PHONY: test
 test:
-	@swift test --enable-test-discovery
+	@swift test
