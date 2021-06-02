@@ -31,6 +31,9 @@ let logger = Logger(system: "br.dev.native.best-example-app", destinations: [.co
 // Then, just call the available methods on the logger instance, there is one method for each
 // logging level. [verbose, debug, info, warning and error].
 logger.info("Hello World!")
+
+// There's support for adding additional context to a log message.
+logger.error("something is not working", context: ["user_id": "deadbeef"])
 ```
 
 If you prefer, there's possibility for defining a shared logger instance through `Logger.main`.
