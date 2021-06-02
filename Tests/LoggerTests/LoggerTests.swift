@@ -31,11 +31,11 @@ final class LoggerTests: XCTestCase {
     let expectation = self.expectation(description: #function)
     expectation.expectedFulfillmentCount = 2
 
-    let destination1 = Logger.Destination { msg in
+    let destination1 = Logger.Destination { _ in
       expectation.fulfill()
     }
 
-    let destination2 = Logger.Destination { msg in
+    let destination2 = Logger.Destination { _ in
       expectation.fulfill()
     }
 
