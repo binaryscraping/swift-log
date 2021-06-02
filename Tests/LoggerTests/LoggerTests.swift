@@ -26,4 +26,26 @@ final class LoggerTests: XCTestCase {
       "1970-01-01T00:00:00Z [INFO][br.dev.native.logger.tests] this is an example log message LoggerTests/LoggerTests.swift.testDefaultFormatter():18 | [\"id\": \"deadbeef\"]"
     )
   }
+
+  func testLoggerShouldCallDestinations() {
+    let expectation = self.expectation(description: #function)
+    expectation.expectedFulfillmentCount = 2
+
+    let destination1 = Logger.Destination { msg in
+      expectation.fulfill()
+    }
+
+    let destination2 = Logger.Destination { msg in
+      expectation.fulfill()
+    }
+
+    let logger = Logger(
+      system: "br.dev.native.logger.tests",
+      destinations: [destination1, destination2]
+    )
+
+    logger.info("info message")
+
+    wait(for: [expectation], timeout: 1)
+  }
 }
