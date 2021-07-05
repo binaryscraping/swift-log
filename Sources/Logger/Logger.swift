@@ -25,7 +25,7 @@ public struct Logger {
   public let destinations: [Destination]
   public let formatter: Formatter
 
-  public enum Level: String, Encodable {
+  public enum Level: String, Codable {
     case verbose = "VERBOSE"
     case debug = "DEBUG"
     case info = "INFO"
@@ -57,8 +57,8 @@ extension Logger {
       date: Date(),
       level: level,
       msg: msg(),
-      function: function,
-      file: file,
+      function: "\(function)",
+      file: "\(file)",
       line: line,
       context: context,
       system: system

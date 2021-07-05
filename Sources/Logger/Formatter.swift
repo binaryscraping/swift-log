@@ -14,7 +14,7 @@ extension Logger {
   }
 }
 
-private let dateFormatter = ISO8601DateFormatter()
+let dateFormatter = ISO8601DateFormatter()
 
 extension Logger.Formatter {
   public static let `default` = Logger.Formatter { msg in
