@@ -32,16 +32,3 @@ extension Logger.Formatter {
       "\(dateString) [\(msg.level.rawValue)][\(msg.system)] \(msg.msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
   }
 }
-
-extension JSON {
-  func formatted(options: JSONEncoder.OutputFormatting = []) -> String {
-    do {
-      let encoder = JSONEncoder()
-      encoder.outputFormatting = options
-      let data = try encoder.encode(self)
-      return String(data: data, encoding: .utf8) ?? ""
-    } catch {
-      return ""
-    }
-  }
-}
