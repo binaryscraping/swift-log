@@ -50,52 +50,52 @@ extension Logger.Destination {
   }
 }
 
-extension Logger.Destination {
-
-  public static func sqlite() throws -> Logger.Destination {
-    let queue = DispatchQueue(label: "br.dev.native.logger.sqlite")
-    let sqlite = try Sqlite(path: ":memory")
-
-    try queue.sync {
-      try sqlite.execute(
-        """
-            CREATE TABLE IF NOT EXISTS "logs" (
-                "id" TEXT PRIMARY KEY,
-                "level" TEXT NOT NULL,
-                "message" TEXT NOT NULL,
-                "function" TEXT NOT NULL,
-                "file" TEXT NOT NULL,
-                "line" INTEGER NOT NULL,
-                "context" BLOB,
-                "system" TEXT NOT NULL
-            );
-        """)
-    }
-
-    return Logger.Destination { msg in
-      queue.sync {
-        do {
-          let contextBlob = try JSONEncoder().encode(msg.context)
-          try sqlite.run(
-            """
-                INSERT INTO "logs"
-                    ("id", "level", "message", "function", "file", "line", "context", "system")
-                VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?);
-            """,
-            .text(UUID().uuidString),
-            .text(msg.level.rawValue),
-            .text(msg.msg),
-            .text(msg.function.description),
-            .text(msg.file.description),
-            .integer(Int64(msg.line)),
-            .blob([UInt8](contextBlob)),
-            .text(msg.system)
-          )
-        } catch {
-          debugPrint(error)
-        }
-      }
-    }
-  }
-}
+//extension Logger.Destination {
+//
+//  public static func sqlite() throws -> Logger.Destination {
+//    let queue = DispatchQueue(label: "br.dev.native.logger.sqlite")
+//    let sqlite = try Sqlite(path: ":memory")
+//
+//    try queue.sync {
+//      try sqlite.execute(
+//        """
+//            CREATE TABLE IF NOT EXISTS "logs" (
+//                "id" TEXT PRIMARY KEY,
+//                "level" TEXT NOT NULL,
+//                "message" TEXT NOT NULL,
+//                "function" TEXT NOT NULL,
+//                "file" TEXT NOT NULL,
+//                "line" INTEGER NOT NULL,
+//                "context" BLOB NOT NULL,
+//                "system" TEXT NOT NULL
+//            );
+//        """)
+//    }
+//
+//    return Logger.Destination { msg in
+//      queue.async {
+//        do {
+//          let contextBlob = try JSONEncoder().encode(msg.context)
+//          try sqlite.run(
+//            """
+//                INSERT INTO "logs"
+//                    ("id", "level", "message", "function", "file", "line", "context", "system")
+//                VALUES
+//                    (?, ?, ?, ?, ?, ?, ?, ?);
+//            """,
+//            .text(UUID().uuidString),
+//            .text(msg.level.rawValue),
+//            .text(msg.msg),
+//            .text(msg.function.description),
+//            .text(msg.file.description),
+//            .integer(Int64(msg.line)),
+//            .blob([UInt8](contextBlob)),
+//            .text(msg.system)
+//          )
+//        } catch {
+//          debugPrint(error)
+//        }
+//      }
+//    }
+//  }
+//}

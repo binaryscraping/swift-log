@@ -19,22 +19,29 @@ private let dateFormatter = ISO8601DateFormatter()
 extension Logger.Formatter {
   public static let `default` = Logger.Formatter { msg in
     let dateString = dateFormatter.string(from: msg.date)
-    let contextString = "\(msg.context)"
+
+    let contextString: String
+    if #available(iOS 11.0, *) {
+      contextString = "\(msg.context.formatted(options: [.sortedKeys]))"
+    } else {
+      contextString = "\(msg.context.formatted())"
+    }
+
     let fileName = msg.file
     return
       "\(dateString) [\(msg.level.rawValue)][\(msg.system)] \(msg.msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
   }
 }
 
-extension JSON: CustomStringConvertible {
-  public var description: String {
-    switch self {
-    case .array(let array): return array.description
-    case .bool(let bool): return bool.description
-    case .null: return "nil"
-    case .number(let number): return number.description
-    case .object(let dict): return dict.description
-    case .string(let string): return string
+extension JSON {
+  func formatted(options: JSONEncoder.OutputFormatting = []) -> String {
+    do {
+      let encoder = JSONEncoder()
+      encoder.outputFormatting = options
+      let data = try encoder.encode(self)
+      return String(data: data, encoding: .utf8) ?? ""
+    } catch {
+      return ""
     }
   }
 }
