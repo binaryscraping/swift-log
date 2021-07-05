@@ -21,7 +21,7 @@ extension Logger.Formatter {
     let dateString = dateFormatter.string(from: msg.date)
 
     let contextString: String
-    if #available(iOS 11.0, *) {
+    if #available(iOS 11.0, macOS 10.13, watchOS 4.0, tvOS 11.0, *) {
       contextString = "\(msg.context.formatted(options: [.sortedKeys]))"
     } else {
       contextString = "\(msg.context.formatted())"
