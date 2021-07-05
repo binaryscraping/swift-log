@@ -16,14 +16,14 @@ final class LoggerTests: XCTestCase {
       function: "testDefaultFormatter()",
       file: "LoggerTests/LoggerTests.swift",
       line: 18,
-      context: ["id": "deadbeef"],
+      context: ["id": "deadbeef", "age": 18],
       system: "br.dev.native.logger.tests"
     )
 
     let result = formatter.format(message)
     XCTAssertEqual(
       result,
-      "1970-01-01T00:00:00Z [INFO][br.dev.native.logger.tests] this is an example log message LoggerTests/LoggerTests.swift.testDefaultFormatter():18 | [\"id\": \"deadbeef\"]"
+      "1970-01-01T00:00:00Z [INFO][br.dev.native.logger.tests] this is an example log message LoggerTests/LoggerTests.swift.testDefaultFormatter():18 | [\"age\": 18.0, \"id\": deadbeef]"
     )
   }
 
@@ -47,5 +47,10 @@ final class LoggerTests: XCTestCase {
     logger.info("info message")
 
     wait(for: [expectation], timeout: 1)
+  }
+
+  func testSqliteDestination() throws {
+    let logger = try Logger(system: "br.dev.native.logger.tests", destinations: [.sqlite()])
+    logger.info("info message")
   }
 }

@@ -2,6 +2,7 @@
 // Licensed under the Apache 2.0 License. See LICENSE file in the project root for full license information.
 
 import Foundation
+import JSON
 
 public struct Logger {
   public static var main: Logger {
@@ -50,7 +51,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     let message = Message(
       date: Date(),
@@ -73,7 +74,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     log(level: .verbose, msg: msg(), function: function, file: file, line: line, context: context)
   }
@@ -83,7 +84,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     log(level: .debug, msg: msg(), function: function, file: file, line: line, context: context)
   }
@@ -93,7 +94,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     log(level: .info, msg: msg(), function: function, file: file, line: line, context: context)
   }
@@ -103,7 +104,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     log(level: .warning, msg: msg(), function: function, file: file, line: line, context: context)
   }
@@ -113,7 +114,7 @@ extension Logger {
     function: StaticString = #function,
     file: StaticString = #fileID,
     line: UInt = #line,
-    context: Any? = nil
+    context: JSON = .null
   ) {
     log(level: .error, msg: msg(), function: function, file: file, line: line, context: context)
   }

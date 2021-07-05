@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "JSON",
+        "repositoryURL": "https://github.com/grsouza/swift-json",
+        "state": {
+          "branch": "main",
+          "revision": "b7c1ab2dcf48b98cb2095c24e28d5c3d322ed37a",
+          "version": null
+        }
+      },
+      {
+        "package": "Sqlite",
+        "repositoryURL": "https://github.com/grsouza/swift-sqlite",
+        "state": {
+          "branch": "main",
+          "revision": "d074e00f482f6b08510bb256f5eda5b76279f64c",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
