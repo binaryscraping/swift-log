@@ -25,12 +25,22 @@ public struct Logger {
   public let destinations: [Destination]
   public let formatter: Formatter
 
-  public enum Level: String, Codable {
-    case verbose = "VERBOSE"
-    case debug = "DEBUG"
-    case info = "INFO"
-    case warning = "WARNING"
-    case error = "ERROR"
+  public enum Level: Int, Codable {
+    case verbose
+    case debug
+    case info
+    case warning
+    case error
+
+    public var description: String {
+      switch self {
+      case .verbose: return "VERBOSE"
+      case .debug: return "DEBUG"
+      case .info: return "INFO"
+      case .warning: return "WARNING"
+      case .error: return "ERROR"
+      }
+    }
   }
 
   public init(

@@ -49,8 +49,11 @@ final class LoggerTests: XCTestCase {
     wait(for: [expectation], timeout: 1)
   }
 
-  //  func testSqliteDestination() throws {
-  //    let logger = try Logger(system: "br.dev.native.logger.tests", destinations: [.sqlite()])
-  //    logger.info("info message")
-  //  }
+  func testSqliteDestination() throws {
+    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(
+      "test-db.sqlite3")
+    let logger = try Logger(
+      system: "br.dev.native.logger.tests", destinations: [.sqlite(atURL: location)])
+    logger.info("info message")
+  }
 }

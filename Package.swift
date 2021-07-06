@@ -21,14 +21,14 @@ let package = Package(
   dependencies: [
     // Dependencies declare other packages that this package depends on.
     .package(name: "JSON", url: "https://github.com/grsouza/swift-json", .branch("main")),
-    .package(name: "Sqlite", url: "https://github.com/grsouza/swift-sqlite", .branch("main")),
+    .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.2"),
   ],
   targets: [
     // Targets are the basic building blocks of a package. A target can define a module or a test suite.
     // Targets can depend on other targets in this package, and on products in packages this package depends on.
     .target(
       name: "Logger",
-      dependencies: ["JSON", "Sqlite"]
+      dependencies: ["JSON", .product(name: "SQLite", package: "SQLite.swift")]
     ),
     .testTarget(
       name: "LoggerTests",

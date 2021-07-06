@@ -2,7 +2,7 @@
 // Licensed under the Apache 2.0 License. See LICENSE file in the project root for full license information.
 
 import Foundation
-import Sqlite
+import SQLite
 
 extension Logger {
   public struct Destination {
@@ -50,52 +50,64 @@ extension Logger.Destination {
   }
 }
 
-//extension Logger.Destination {
-//
-//  public static func sqlite() throws -> Logger.Destination {
-//    let queue = DispatchQueue(label: "br.dev.native.logger.sqlite")
-//    let sqlite = try Sqlite(path: ":memory")
-//
-//    try queue.sync {
-//      try sqlite.execute(
-//        """
-//            CREATE TABLE IF NOT EXISTS "logs" (
-//                "id" TEXT PRIMARY KEY,
-//                "level" TEXT NOT NULL,
-//                "message" TEXT NOT NULL,
-//                "function" TEXT NOT NULL,
-//                "file" TEXT NOT NULL,
-//                "line" INTEGER NOT NULL,
-//                "context" BLOB NOT NULL,
-//                "system" TEXT NOT NULL
-//            );
-//        """)
-//    }
-//
-//    return Logger.Destination { msg in
-//      queue.async {
-//        do {
-//          let contextBlob = try JSONEncoder().encode(msg.context)
-//          try sqlite.run(
-//            """
-//                INSERT INTO "logs"
-//                    ("id", "level", "message", "function", "file", "line", "context", "system")
-//                VALUES
-//                    (?, ?, ?, ?, ?, ?, ?, ?);
-//            """,
-//            .text(UUID().uuidString),
-//            .text(msg.level.rawValue),
-//            .text(msg.msg),
-//            .text(msg.function.description),
-//            .text(msg.file.description),
-//            .integer(Int64(msg.line)),
-//            .blob([UInt8](contextBlob)),
-//            .text(msg.system)
-//          )
-//        } catch {
-//          debugPrint(error)
-//        }
-//      }
-//    }
-//  }
-//}
+extension Logger.Destination {
+
+  public static func sqlite(atURL url: URL) throws -> Logger.Destination {
+    let db = try Connection(url.path)
+
+    #if DEBUG
+      db.trace { print($0) }
+    #endif
+
+    let logs = Table("logs")
+    let id = Expression<String>("id")
+    let date = Expression<Date>("date")
+    let level = Expression<Int>("level")
+    let message = Expression<String>("message")
+    let function = Expression<String>("function")
+    let file = Expression<String>("file")
+    let line = Expression<Int>("line")
+    let context = Expression<Blob?>("context")
+    let system = Expression<String>("system")
+
+    try db.run(
+      logs.create(ifNotExists: true) { t in
+        t.column(id, primaryKey: true)
+        t.column(date)
+        t.column(level)
+        t.column(message)
+        t.column(function)
+        t.column(file)
+        t.column(line)
+        t.column(context)
+        t.column(system)
+      })
+
+    return Logger.Destination { msg in
+      do {
+        let blob: () throws -> Blob? = {
+          guard msg.context != .null else { return nil }
+          let data = try JSONEncoder().encode(msg.context)
+          let bytes = [UInt8](data)
+          return Blob(bytes: bytes)
+        }
+
+        try db.run(
+          logs.insert(
+            id <- UUID().uuidString,
+            date <- msg.date,
+            level <- msg.level.rawValue,
+            message <- msg.msg,
+            function <- msg.function,
+            file <- msg.file,
+            line <- Int(msg.line),
+            context <- blob(),
+            system <- msg.system
+          )
+        )
+      } catch {
+        debugPrint(error)
+      }
+    }
+  }
+}

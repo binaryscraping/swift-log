@@ -29,6 +29,6 @@ extension Logger.Formatter {
 
     let fileName = msg.file
     return
-      "\(dateString) [\(msg.level.rawValue)][\(msg.system)] \(msg.msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
+      "\(dateString) [\(msg.level.description)][\(msg.system)] \(msg.msg) \(fileName).\(msg.function):\(msg.line) | \(contextString)"
   }
 }
