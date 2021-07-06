@@ -49,11 +49,13 @@ If `Logger.main` is used before being initialized the app will crash.
 
 ### Destinations
 
-This package provides two destinations out of the box, the `console` and `file`.
+This package provides three destinations out of the box, the `console`, `file` and `sqlite`.
 
 The `console` destination sends the log messages to the console and it's `debug` only, so no logs are sent on `release` builds.
 
 The `file` destination writes logs messages to a local file that the user must provide.
+
+And the `sqlite` destination writes logs to a sqlite database, this is the most powerful destination as you can aggregate and query for logs.
 
 Boths destinations accepts a `Formatter` parameter to customize the formatting logic of the message, there's a default implementation.
 
