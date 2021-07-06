@@ -52,11 +52,13 @@ extension Logger.Destination {
 
 extension Logger.Destination {
 
-  public static func sqlite(atURL url: URL) throws -> Logger.Destination {
+  public static func sqlite(atURL url: URL, trace: Bool = false) throws -> Logger.Destination {
     let db = try Connection(url.path)
 
     #if DEBUG
-      db.trace { print($0) }
+      if trace {
+        db.trace { print($0) }
+      }
     #endif
 
     let logs = Table("logs")
