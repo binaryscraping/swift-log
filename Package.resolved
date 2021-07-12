@@ -2,20 +2,20 @@
   "object": {
     "pins": [
       {
-        "package": "SQLite.swift",
-        "repositoryURL": "https://github.com/stephencelis/SQLite.swift",
-        "state": {
-          "branch": null,
-          "revision": "0a9893ec030501a3956bee572d6b4fdd3ae158a1",
-          "version": "0.12.2"
-        }
-      },
-      {
         "package": "JSON",
         "repositoryURL": "https://github.com/grsouza/swift-json",
         "state": {
           "branch": "main",
           "revision": "a4c641421ea495dff23398feb14b991ba63d4062",
+          "version": null
+        }
+      },
+      {
+        "package": "Sqlite",
+        "repositoryURL": "https://github.com/grsouza/swift-sqlite",
+        "state": {
+          "branch": "main",
+          "revision": "d074e00f482f6b08510bb256f5eda5b76279f64c",
           "version": null
         }
       }

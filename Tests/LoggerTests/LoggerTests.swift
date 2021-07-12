@@ -50,10 +50,15 @@ final class LoggerTests: XCTestCase {
   }
 
   func testSqliteDestination() throws {
-    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(
-      "test-db.sqlite3")
-    let logger = try Logger(
-      system: "br.dev.native.logger.tests", destinations: [.sqlite(atURL: location)])
+    let sqliteStore = try SQLiteLoggingStore(path: "")
+    let logger = Logger(
+      system: "br.dev.native.logger.tests",
+      destinations: [sqliteStore.destination]
+    )
     logger.info("info message")
+
+    let allLogs = sqliteStore.logs()
+    XCTAssertEqual(allLogs.count, 1)
+    XCTAssertEqual(allLogs[0].msg, "info message")
   }
 }
