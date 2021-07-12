@@ -72,14 +72,15 @@ public final class SQLiteLoggingStore {
       )
       .map { row in
         Logger.Message(
-          date: dateFormatter.date(from: row[0].textValue!)!,
-          level: Logger.Level(rawValue: row[1].integerValue.map(Int.init)!)!,
+          date: row[0].textValue.flatMap { dateFormatter.date(from: $0) }!,
+          level: row[1].integerValue.map(Int.init).flatMap(Logger.Level.init(rawValue:))!,
           msg: row[2].textValue!,
           function: row[3].textValue!,
           file: row[4].textValue!,
           line: row[5].integerValue.map(UInt.init)!,
           context: row[6].isNull
-            ? .null : try JSONDecoder().decode(JSON.self, from: Data(row[6].blobValue!)),
+            ? .null
+            : try JSONDecoder().decode(JSON.self, from: Data(row[6].blobValue!)),
           system: row[7].textValue!
         )
       }
