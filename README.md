@@ -85,4 +85,4 @@ Pull requests are welcome.
 Please make sure to update tests as appropriate.
 
 ## License
-[Apacha 2.0](/LICENSE)
+[Apache 2.0](/LICENSE)
