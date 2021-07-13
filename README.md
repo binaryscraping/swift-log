@@ -80,6 +80,10 @@ logger.info("info message")
 // And then query the log messages by using method `logs(where:)`.
 let logs = try store.logs(
   where: .or(.level(.info), .level(.error)), .file("%Tests.swift"))
+  
+// The above filter is transformed into a SQL `where` clause and stands for:
+// 'Fetch all log messages that has a level error or info and has happened on files that ends with "Tests.swift"'.
+// Example: 'WHERE ("level" = 2 OR "level" = 4) AND ("file" LIKE "%Tests.swift")'
 ```
 
 For available filters, take a look at the [Filter `enum`](https://github.com/nativedevbr/swift-log/blob/main/Sources/Logger/SQLite/SQLiteLoggingStore.swift#L77).
