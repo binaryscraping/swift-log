@@ -59,6 +59,31 @@ And the `sqlite` destination writes logs to a sqlite database, this is the most 
 
 Boths destinations accepts a `Formatter` parameter to customize the formatting logic of the message, there's a default implementation.
 
+#### SQLite Destination
+
+There is a default implementaiton for a SQLite destination that supports filtering log messages.
+
+```swift
+// Initialize a new SQLiteLoggingStore passing the database path.
+// It's important to keep a single instance of a SQLiteLoggingStore through the whole life cycle.
+let store = try SQLiteLoggingStore(path: "path/to/db.sqlite")
+
+// Init a Logger instance by passing the store's destination
+let logger = Logger(
+  system: "br.dev.native.logger.tests",
+  destinations: [store.destination]
+)
+
+// Use the logger
+logger.info("info message")
+
+// And then query the log messages by using method `logs(where:)`.
+let logs = try store.logs(
+  where: .or(.level(.info), .level(.error)), .file("%Tests.swift"))
+```
+
+For available filters, take a look at the [Filter `enum`](https://github.com/nativedevbr/swift-log/blob/main/Sources/Logger/SQLite/SQLiteLoggingStore.swift#L77).
+
 #### Custom destinations
 
 This destination approach makes very easy to add new ones, like this example of a destination that sends the log messages to `Crashlytics`.
@@ -80,6 +105,7 @@ Logger.main = Logger(system: "br.dev.native.best-example-app", destinations: [.c
 ```
 
 ## Contributing
+
 Pull requests are welcome.
 
 Please make sure to update tests as appropriate.
