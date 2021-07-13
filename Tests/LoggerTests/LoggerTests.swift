@@ -57,8 +57,9 @@ final class LoggerTests: XCTestCase {
     )
     logger.info("info message")
 
-    let allLogs = sqliteStore.logs()
+    let allLogs = try sqliteStore.logs(
+      where: .or(.level(.info), .level(.error)), .file("%Tests.swift"))
     XCTAssertEqual(allLogs.count, 1)
-    XCTAssertEqual(allLogs[0].msg, "info message")
+    XCTAssertEqual(allLogs.first?.msg, "info message")
   }
 }
