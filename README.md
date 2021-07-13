@@ -10,6 +10,8 @@ Simple logging for simples needs.
 
 Declare your dependency in your `Package.swift` file.
 
+**Attention: This library is not stable and any update can introduce a BREAKING CHANGE.**
+
 ```swift
 .package(name: "Logger", url: "https://github.com/nativedevbr/swift-log.git", from: "0.1.0"),
 ```
