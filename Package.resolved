@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "JSON",
-        "repositoryURL": "https://github.com/grsouza/swift-json",
-        "state": {
-          "branch": "main",
-          "revision": "a4c641421ea495dff23398feb14b991ba63d4062",
-          "version": null
-        }
-      },
-      {
-        "package": "Sqlite",
-        "repositoryURL": "https://github.com/grsouza/swift-sqlite",
-        "state": {
-          "branch": "main",
-          "revision": "d074e00f482f6b08510bb256f5eda5b76279f64c",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "swift-json",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/binaryscraping/swift-json",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a4c641421ea495dff23398feb14b991ba63d4062"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-sqlite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/binaryscraping/swift-sqlite",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d074e00f482f6b08510bb256f5eda5b76279f64c"
+      }
+    }
+  ],
+  "version" : 2
 }

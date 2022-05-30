@@ -1,5 +1,4 @@
-// swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -12,31 +11,26 @@ let package = Package(
     .tvOS(.v10),
   ],
   products: [
-    // Products define the executables and libraries a package produces, and make them visible to other packages.
     .library(
       name: "Logger",
       targets: ["Logger"]
     )
   ],
   dependencies: [
-    // Dependencies declare other packages that this package depends on.
-    .package(name: "JSON", url: "https://github.com/grsouza/swift-json", .branch("main")),
-    .package(name: "Sqlite", url: "https://github.com/grsouza/swift-sqlite", .branch("main")),
+    .package(url: "https://github.com/binaryscraping/swift-json", branch: "main"),
+    .package(url: "https://github.com/binaryscraping/swift-sqlite", branch: "main"),
   ],
   targets: [
-    // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-    // Targets can depend on other targets in this package, and on products in packages this package depends on.
     .target(
       name: "Logger",
       dependencies: [
-        "JSON",
-        "Sqlite",
+        .product(name: "JSON", package: "swift-json"),
+        .product(name: "Sqlite", package: "swift-sqlite"),
       ]
     ),
     .testTarget(
       name: "LoggerTests",
       dependencies: ["Logger"]
     ),
-  ],
-  swiftLanguageVersions: [.v5]
+  ]
 )

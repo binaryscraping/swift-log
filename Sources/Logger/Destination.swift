@@ -1,4 +1,4 @@
-// Copyright (c) native.dev.br. All rights reserved.
+// Copyright (c) binaryscraping.co. All rights reserved.
 // Licensed under the Apache 2.0 License. See LICENSE file in the project root for full license information.
 
 import Foundation
@@ -27,7 +27,7 @@ extension Logger.Destination {
   public static func file(atURL url: URL, using formatter: Logger.Formatter = .default) throws
     -> Logger.Destination
   {
-    let queue = DispatchQueue(label: "br.dev.native.logger.filedestination")
+    let queue = DispatchQueue(label: "co.binaryscraping.logger.filedestination")
 
     if !FileManager.default.fileExists(atPath: url.path) {
       // TODO: maybe pass in some attributes?

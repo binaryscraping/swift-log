@@ -1,4 +1,4 @@
-// Copyright (c) native.dev.br. All rights reserved.
+// Copyright (c) binaryscraping.co. All rights reserved.
 // Licensed under the Apache 2.0 License. See LICENSE file in the project root for full license information.
 
 import XCTest
@@ -17,13 +17,13 @@ final class LoggerTests: XCTestCase {
       file: "LoggerTests/LoggerTests.swift",
       line: 18,
       context: ["id": "deadbeef", "age": 18],
-      system: "br.dev.native.logger.tests"
+      system: "co.binaryscraping.logger.tests"
     )
 
     let result = formatter.format(message)
     XCTAssertEqual(
       result,
-      "1970-01-01T00:00:00Z [INFO][br.dev.native.logger.tests] this is an example log message LoggerTests/LoggerTests.swift.testDefaultFormatter():18 | {\"age\":18,\"id\":\"deadbeef\"}"
+      "1970-01-01T00:00:00Z [INFO][co.binaryscraping.logger.tests] this is an example log message LoggerTests/LoggerTests.swift.testDefaultFormatter():18 | {\"age\":18,\"id\":\"deadbeef\"}"
     )
   }
 
@@ -40,7 +40,7 @@ final class LoggerTests: XCTestCase {
     }
 
     let logger = Logger(
-      system: "br.dev.native.logger.tests",
+      system: "co.binaryscraping.logger.tests",
       destinations: [destination1, destination2]
     )
 
@@ -52,7 +52,7 @@ final class LoggerTests: XCTestCase {
   func testSqliteDestination() throws {
     let sqliteStore = try SQLiteLoggingStore(path: "")
     let logger = Logger(
-      system: "br.dev.native.logger.tests",
+      system: "co.binaryscraping.logger.tests",
       destinations: [sqliteStore.destination]
     )
     logger.info("info message")

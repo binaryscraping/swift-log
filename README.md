@@ -1,5 +1,5 @@
 # Logger
-[![Test](https://github.com/nativedevbr/swift-log/actions/workflows/test.yml/badge.svg)](https://github.com/nativedevbr/swift-log/actions/workflows/test.yml)
+[![Test](https://github.com/binaryscraping/swift-log/actions/workflows/test.yml/badge.svg)](https://github.com/nativedevbr/swift-log/actions/workflows/test.yml)
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnativedevbr%2Fswift-log%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/nativedevbr/swift-log)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnativedevbr%2Fswift-log%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/nativedevbr/swift-log)
@@ -13,7 +13,7 @@ Declare your dependency in your `Package.swift` file.
 **Attention: This library is not stable and any update can introduce a BREAKING CHANGE.**
 
 ```swift
-.package(name: "Logger", url: "https://github.com/nativedevbr/swift-log.git", from: "0.1.0"),
+.package(name: "Logger", url: "https://github.com/binaryscraping/swift-log.git", from: "0.1.0"),
 ```
  and add it to your application target.
  
@@ -31,7 +31,7 @@ import Logger
 // It's recommended to use an inverse domain like your bundle identifier.
 // This logging implementation is based on destinations, each destination represent a place where
 // the log messagens will be sent.
-let logger = Logger(system: "br.dev.native.best-example-app", destinations: [.console(), .file(url: URL(...)])
+let logger = Logger(system: "co.binaryscraping.best-example-app", destinations: [.console(), .file(url: URL(...)])
 
 // Then, just call the available methods on the logger instance, there is one method for each
 // logging level. [verbose, debug, info, warning and error].
@@ -44,7 +44,7 @@ logger.error("something is not working", context: ["user_id": "deadbeef"])
 If you prefer, there's possibility for defining a shared logger instance through `Logger.main`.
 
 ```swift
-Logger.main = Logger(system: "br.dev.native.best-example-app", destinations: [.console(), .file(url: URL(...)])
+Logger.main = Logger(system: "co.binaryscraping.best-example-app", destinations: [.console(), .file(url: URL(...)])
 ```
 
 If `Logger.main` is used before being initialized the app will crash. 
@@ -72,7 +72,7 @@ let store = try SQLiteLoggingStore(path: "path/to/db.sqlite")
 
 // Init a Logger instance by passing the store's destination
 let logger = Logger(
-  system: "br.dev.native.logger.tests",
+  system: "co.binaryscraping.logger.tests",
   destinations: [store.destination]
 )
 
@@ -107,7 +107,7 @@ extension Logger.Destination {
 }
 
 // Then to use the new destination, simply init a logger passing the `crashlytics` destination.
-Logger.main = Logger(system: "br.dev.native.best-example-app", destinations: [.console(), .crashlytics])
+Logger.main = Logger(system: "co.binaryscraping.best-example-app", destinations: [.console(), .crashlytics])
 ```
 
 ## Contributing
