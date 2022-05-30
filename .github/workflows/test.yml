@@ -1,16 +1,12 @@
-name: Test
+name: "swift-log tests"
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   test:
     strategy: 
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-12]
 
     runs-on: ${{ matrix.os }}
 
